@@ -17,18 +17,26 @@ export const metadata: Metadata = {
 
 type LayoutProps = {
   children: ReactNode;
-  params: Promise<{ lang: Lang }>;
+  params: Promise<{
+    lang: string;
+  }>;
 };
 
 export default async function RootLayout({ children, params }: LayoutProps) {
   const { lang } = await params;
 
+  if (!LANGS.includes(lang as Lang)) {
+    throw new Error(`Unsupported language: ${lang}`);
+  }
+
+  const currentLang = lang as Lang;
+
   return (
     <html lang={lang}>
       <body>
-        <Header lang={lang} />
+        <Header lang={currentLang} />
         <main>{children}</main>
-        <Footer lang={lang} />
+        <Footer lang={currentLang} />
       </body>
     </html>
   );
