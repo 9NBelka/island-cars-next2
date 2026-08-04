@@ -9,6 +9,7 @@ import FormField from '../FormField/FormField';
 import { buildLoginSchema, loginInitialValues, type LoginValues } from './validationSchema';
 import styles from '../RegisterForm/RegisterForm.module.scss';
 import loginStyles from './LoginForm.module.scss';
+import clsx from 'clsx';
 
 type LoginFormProps = { lang: Lang };
 
@@ -22,10 +23,7 @@ export default function LoginForm({ lang }: LoginFormProps) {
 
   return (
     <div className={styles.mainBlock}>
-      <div className={styles.card}>
-        <div className={styles.iconTop}>
-          <BsBoxArrowInRight />
-        </div>
+      <div className={clsx(styles.card, styles.cardLogin)}>
         <h1 className={styles.title}>{t('auth.login.title')}</h1>
         <p className={styles.subtitle}>{t('auth.login.subtitle')}</p>
 
@@ -53,9 +51,11 @@ export default function LoginForm({ lang }: LoginFormProps) {
               {t('auth.login.forgotPassword')}
             </LangLink>
 
-            <button type='submit' className={styles.submit}>
-              {t('auth.login.submit')}
-            </button>
+            <div className={styles.submitBlock}>
+              <button type='submit' className={styles.submit}>
+                {t('auth.login.submit')}
+              </button>
+            </div>
 
             <p className={styles.footerLink}>
               {t('auth.login.noAccount')}{' '}

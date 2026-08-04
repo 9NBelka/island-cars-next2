@@ -50,7 +50,7 @@
   "footer": {
     "news": "News",
     "articles": "Articles",
-    "copyright": "© 2026 IslandCars. All rights reserved.",
+    "copyright": "IslandCars. All rights reserved.",
     "privacy": "Privacy policy",
     "cookies": "Cookies policy"
   },
@@ -117,5 +117,21 @@
       "underage": "You must be at least 18 years old",
       "invalidDate": "Enter a valid date"
     }
+  },
+  "contacts": {
+    "label": "CONTACT US",
+    "title": "Contact us in any way",
+    "titleAccent": "convenient for you!",
+    "subtitle": "We are always ready to help you with any questions about car rental in Spain.",
+    "workingHoursLabel": "WORKING HOURS",
+    "workingHoursDays": "Monday - Sunday",
+    "workingHoursTime": "09:00 - 20:00",
+    "phone1": "+34 629 935 674",
+    "phone2": "+34 699 209 002",
+    "email": "rentcar@islandcars.es",
+    "address": "Avinguda de Cervantes, 19",
+    "addressCity": "03140 Guardamar del Segura, Spain",
+    "map": "Map",
+    "satellite": "Satellite"
   }
 }

@@ -11,7 +11,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'VALG — Car Rental',
+  title: 'Island Cars',
   description: 'Discover Spain at your own pace.',
 };
 

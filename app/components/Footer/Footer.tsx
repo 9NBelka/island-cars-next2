@@ -8,6 +8,7 @@ type FooterProps = { lang: Lang };
 
 export default function Footer({ lang }: FooterProps) {
   const t = getT(lang);
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className={styles.footer}>
@@ -29,7 +30,9 @@ export default function Footer({ lang }: FooterProps) {
               </div>
             </nav>
           </div>
-          <p className={styles.copyright}> {t('footer.copyright')}</p>
+          <p className={styles.copyright}>
+            &copy; {currentYear} {t('footer.copyright')}
+          </p>
           <div className={styles.legalAndSocial}>
             <div className={styles.legal}>
               <LangLink lang={lang} href='/privacy'>

@@ -31,7 +31,7 @@ export default function FormField({
           <Icon className={styles.labelIcon} />
           {label}
         </label>
-        {hint && <span className={styles.hint}>{hint}</span>}
+        {/* {hint && <span className={styles.hint}>{hint}</span>} */}
       </div>
 
       <input

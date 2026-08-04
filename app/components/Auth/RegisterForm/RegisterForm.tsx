@@ -5,28 +5,27 @@ import {
   BsPersonFill,
   BsEnvelopeFill,
   BsTelephoneFill,
-  BsCalendar3,
-  BsGlobe,
   BsFlagFill,
   BsBuildingFill,
   BsHouseDoorFill,
-  BsMailbox2Flag,
   BsCardChecklist,
   BsFileEarmarkTextFill,
   BsHash,
-  BsPersonPlusFill,
+  BsFillPostcardFill,
+  BsGlobe,
 } from 'react-icons/bs';
 import { getT } from '../../../i18n/getT';
 import type { Lang } from '../../../i18n/types';
 import LangLink from '../../LangLink/LangLink';
 import FormField from '../FormField/FormField';
-import FormSelect from '../FormSelect/FormSelect';
 import {
   buildRegisterSchema,
   registerInitialValues,
   type RegisterValues,
 } from './validationSchema';
 import styles from './RegisterForm.module.scss';
+import AuthDatePicker from '../AuthDatePicker/AuthDatePicker';
+import AuthSelect from '../AuthSelect/AuthSelect';
 
 type RegisterFormProps = { lang: Lang };
 
@@ -37,9 +36,12 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
   const languageOptions = [
     { value: 'en', label: 'English' },
     { value: 'es', label: 'Español' },
+    { value: 'ru', label: 'Русский' },
+    { value: 'uk', label: 'Українська' },
   ];
 
   const documentTypeOptions = [
+    { value: 'Заграничный паспорт', label: 'Заграничный паспорт' },
     { value: 'dni', label: t('auth.register.documentTypes.dni') },
     { value: 'passport', label: t('auth.register.documentTypes.passport') },
     { value: 'nie', label: t('auth.register.documentTypes.nie') },
@@ -52,9 +54,6 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
   return (
     <div className={styles.mainBlock}>
       <div className={styles.card}>
-        <div className={styles.iconTop}>
-          <BsPersonPlusFill />
-        </div>
         <h1 className={styles.title}>{t('auth.register.title')}</h1>
         <p className={styles.subtitle}>{t('auth.register.subtitle')}</p>
 
@@ -76,9 +75,6 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
                 icon={BsPersonFill}
                 placeholder={t('auth.register.lastNamePlaceholder')}
               />
-            </div>
-
-            <div className={styles.row}>
               <FormField
                 name='email'
                 label={t('auth.register.email')}
@@ -86,6 +82,9 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
                 type='email'
                 placeholder={t('auth.register.emailPlaceholder')}
               />
+            </div>
+
+            <div className={styles.row}>
               <FormField
                 name='phone'
                 label={t('auth.register.phone')}
@@ -94,17 +93,12 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
                 placeholder={t('auth.register.phonePlaceholder')}
                 hint={t('auth.register.phoneHint')}
               />
-            </div>
-
-            <div className={styles.row}>
-              <FormField
+              <AuthDatePicker
                 name='dateOfBirth'
                 label={t('auth.register.dateOfBirth')}
-                icon={BsCalendar3}
-                type='date'
-                placeholder={t('auth.register.dateOfBirthPlaceholder')}
+                lang={lang}
               />
-              <FormSelect
+              <AuthSelect
                 name='language'
                 label={t('auth.register.language')}
                 icon={BsGlobe}
@@ -112,6 +106,8 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
                 placeholder={t('auth.register.language')}
               />
             </div>
+
+            {/* <div className={styles.row}></div> */}
 
             <div className={styles.row}>
               <FormField
@@ -126,32 +122,28 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
                 icon={BsBuildingFill}
                 placeholder={t('auth.register.cityPlaceholder')}
               />
-            </div>
-
-            <div className={styles.row}>
               <FormField
                 name='address'
                 label={t('auth.register.address')}
                 icon={BsHouseDoorFill}
                 placeholder={t('auth.register.addressPlaceholder')}
               />
-              <FormField
+            </div>
+
+            <div className={styles.row}>
+              {/* <FormField
                 name='postalCode'
                 label={t('auth.register.postalCode')}
                 icon={BsMailbox2Flag}
                 placeholder={t('auth.register.postalCodePlaceholder')}
+              /> */}
+              <FormField
+                name='licenseNumber'
+                label={t('auth.register.licenseNumber')}
+                icon={BsCardChecklist}
+                placeholder={t('auth.register.licenseNumberPlaceholder')}
               />
-            </div>
-
-            <FormField
-              name='licenseNumber'
-              label={t('auth.register.licenseNumber')}
-              icon={BsCardChecklist}
-              placeholder={t('auth.register.licenseNumberPlaceholder')}
-            />
-
-            <div className={styles.row}>
-              <FormSelect
+              <AuthSelect
                 name='documentType'
                 label={t('auth.register.documentType')}
                 icon={BsFileEarmarkTextFill}
@@ -161,14 +153,18 @@ export default function RegisterForm({ lang }: RegisterFormProps) {
               <FormField
                 name='documentNumber'
                 label={t('auth.register.documentNumber')}
-                icon={BsHash}
+                icon={BsFillPostcardFill}
                 placeholder={t('auth.register.documentNumberPlaceholder')}
               />
             </div>
 
-            <button type='submit' className={styles.submit}>
-              {t('auth.register.submit')}
-            </button>
+            {/* <div className={styles.row}></div> */}
+
+            <div className={styles.submitBlock}>
+              <button type='submit' className={styles.submit}>
+                {t('auth.register.submit')}
+              </button>
+            </div>
 
             <p className={styles.footerLink}>
               {t('auth.register.haveAccount')}{' '}
