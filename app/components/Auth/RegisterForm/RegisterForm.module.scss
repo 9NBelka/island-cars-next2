@@ -1,0 +1,106 @@
+.mainBlock {
+  min-height: 91vh;
+  background: url('/images/login-register-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  // background-size: cover;
+  background-position-y: -4vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  max-width: 40vw;
+  min-width: 340px;
+  margin: 4vw auto;
+  background: #0d0d0d;
+  border: 0.01vw solid var(--color-darkGray, #262626);
+  border-radius: 1vw;
+  padding: 2.5vw 3vw;
+}
+
+.iconTop {
+  width: 2.6vw;
+  height: 2.6vw;
+  margin: 0 auto 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(225, 17, 17, 0.15);
+  border: 0.01vw solid var(--color-red-main, #e11);
+  border-radius: 0.6vw;
+  color: var(--color-red-main, #e11);
+  font-size: 1.2vw;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+  font-size: 1.4vw;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-size: 0.85vw;
+  margin-bottom: 1.5vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1vw;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2vw;
+}
+
+.submit {
+  background: var(--color-red-main, #e11);
+  border: none;
+  border-radius: 0.5vw;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9vw;
+  padding: 0.9vw;
+  cursor: pointer;
+  margin-top: 0.5vw;
+
+  &:hover {
+    background: #c50e0e;
+  }
+}
+
+.footerLink {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8vw;
+
+  a {
+    color: var(--color-red-main, #e11);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 90vw;
+    padding: 6vw;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,20 @@
+.select {
+  background: #1a1a1a;
+  border: 0.01vw solid var(--color-darkGray, #333);
+  border-radius: 0.5vw;
+  padding: 0.75vw 0.9vw;
+  color: #fff;
+  font-size: 0.85vw;
+  appearance: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-red-main, #e11);
+  }
+
+  option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+}

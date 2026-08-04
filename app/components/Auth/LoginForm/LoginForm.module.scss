@@ -1,0 +1,11 @@
+.forgotLink {
+  align-self: flex-end;
+  color: var(--color-red-main, #e11);
+  text-decoration: none;
+  font-size: 0.8vw;
+  margin-top: -0.4vw;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
