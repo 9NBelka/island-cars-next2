@@ -28,7 +28,7 @@ export default function Contacts({ lang }: ContactsProps) {
             <p className={styles.label}>{t('contacts.label')}</p>
 
             <h1 className={styles.title}>
-              {t('contacts.title')} ававав
+              {t('contacts.title')}{' '}
               <span className={styles.accent}>{t('contacts.titleAccent')}</span>
             </h1>
 
