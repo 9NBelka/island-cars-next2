@@ -34,7 +34,7 @@ export default function Hero({ lang }: HeroProps) {
           </div>
           <div className={styles.contactTextBlock}>
             <p className={styles.contactLabel}>{t('hero.contactUs')}</p>
-            <p className={styles.contactPhone}>+34 629 935 674</p>
+            <p className={styles.contactPhone}>+34 632 230 891</p>
           </div>
         </div>
 

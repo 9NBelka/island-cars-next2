@@ -36,14 +36,14 @@ export default function Contacts({ lang }: ContactsProps) {
 
             {/* Phones */}
             <div className={styles.mainRow}>
-              <a href='tel:+34629935674' className={styles.contactCard}>
+              <a href='tel:+34632230891' className={styles.contactCard}>
                 <span className={styles.iconCircle}>
                   <BsTelephone className={styles.icon} />
                 </span>
                 <p className={styles.phoneText}>{t('contacts.phone1')}</p>
               </a>
 
-              <a href='tel:+34699209002' className={styles.contactCard}>
+              <a href='tel:+34632230891' className={styles.contactCard}>
                 <span className={styles.iconCircle}>
                   <BsTelephone className={styles.icon} />
                 </span>
