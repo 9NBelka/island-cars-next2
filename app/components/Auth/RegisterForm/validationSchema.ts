@@ -3,8 +3,7 @@ import type { TFunction } from '../../../i18n/getT';
 
 const NAME_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿĀ-žÑñ\s'-]+$/;
 const PHONE_REGEX = /^\+?[0-9]{7,15}$/;
-const POSTAL_CODE_REGEX = /^[0-9]{4,10}$/;
-const ALPHANUMERIC_REGEX = /^[A-Za-z0-9]{4,20}$/;
+const ALPHANUMERIC_REGEX = /^[A-Za-z0-9\s-]{4,30}$/;
 
 export function buildRegisterSchema(t: TFunction) {
   return Yup.object({
@@ -35,15 +34,21 @@ export function buildRegisterSchema(t: TFunction) {
       .matches(NAME_REGEX, t('auth.errors.onlyLetters'))
       .required(t('auth.errors.required')),
     address: Yup.string().required(t('auth.errors.required')),
-    postalCode: Yup.string()
-      .matches(POSTAL_CODE_REGEX, t('auth.errors.invalidPostalCode'))
-      .required(t('auth.errors.required')),
     licenseNumber: Yup.string()
       .matches(ALPHANUMERIC_REGEX, t('auth.errors.invalidDocument'))
       .required(t('auth.errors.required')),
     documentType: Yup.string().required(t('auth.errors.required')),
     documentNumber: Yup.string()
       .matches(ALPHANUMERIC_REGEX, t('auth.errors.invalidDocument'))
+      .required(t('auth.errors.required')),
+
+    // ─── Password fields ───
+    password: Yup.string()
+      .min(8, t('auth.errors.passwordMinLength'))
+      .matches(/[0-9]/, t('auth.errors.passwordDigit'))
+      .required(t('auth.errors.required')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password')], t('auth.errors.passwordMatch'))
       .required(t('auth.errors.required')),
   });
 }
@@ -58,10 +63,11 @@ export type RegisterValues = {
   country: string;
   city: string;
   address: string;
-  postalCode: string;
   licenseNumber: string;
   documentType: string;
   documentNumber: string;
+  password: string;
+  confirmPassword: string;
 };
 
 export const registerInitialValues: RegisterValues = {
@@ -74,8 +80,9 @@ export const registerInitialValues: RegisterValues = {
   country: '',
   city: '',
   address: '',
-  postalCode: '',
   licenseNumber: '',
   documentType: '',
   documentNumber: '',
+  password: '',
+  confirmPassword: '',
 };

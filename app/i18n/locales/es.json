@@ -91,7 +91,11 @@
       "documentNumberPlaceholder": "Introduce el número de documento",
       "submit": "Crear cuenta",
       "haveAccount": "¿Ya tienes una cuenta?",
-      "logIn": "Iniciar sesión"
+      "logIn": "Iniciar sesión",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Introduce la contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Repite la contraseña"
     },
     "login": {
       "title": "Bienvenido de nuevo",
@@ -115,7 +119,10 @@
       "invalidDocument": "Solo se permiten letras y números",
       "invalidPassword": "Al menos 8 caracteres",
       "underage": "Debes ser mayor de 18 años",
-      "invalidDate": "Introduce una fecha válida"
+      "invalidDate": "Introduce una fecha válida",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+      "passwordDigit": "La contraseña debe contener al menos un dígito",
+      "passwordMatch": "Las contraseñas no coinciden"
     }
   },
   "contacts": {

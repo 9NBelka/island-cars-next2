@@ -1,26 +1,51 @@
 import { BsFillTelephoneFill, BsShieldFillCheck, BsClockFill, BsTagFill } from 'react-icons/bs';
+import type { IconType } from 'react-icons';
+
 import { getT } from '../../i18n/getT';
 import type { Lang } from '../../i18n/types';
-import SearchForm from '../SearchForm/SearchForm';
-import styles from './Hero.module.scss';
-import type { IconType } from 'react-icons';
-import Stats from '../Stats/Stats';
-import Footer from '../Footer/Footer';
 
-type HeroProps = { lang: Lang };
+import SearchForm from '../SearchForm/SearchForm';
+import Stats from '../Stats/Stats';
+
+import styles from './Hero.module.scss';
+
+import type { SearchCarsParams } from '@/app/types/search';
+import type { SearchFormState } from '@/app/types/searchForm';
+
+type HeroProps = {
+  lang: Lang;
+
+  form: SearchFormState;
+
+  onFormChange: (form: SearchFormState) => void;
+
+  onSearch: (params: SearchCarsParams) => void;
+};
 
 type Feature = {
   icon: IconType;
   text: string;
 };
 
-export default function Hero({ lang }: HeroProps) {
+console.log(process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 20));
+
+export default function Hero({ lang, form, onFormChange, onSearch }: HeroProps) {
   const t = getT(lang);
 
   const features: Feature[] = [
-    { icon: BsShieldFillCheck, text: t('hero.features.insurance') },
-    { icon: BsClockFill, text: t('hero.features.pickup') },
-    { icon: BsTagFill, text: t('hero.features.price') },
+    {
+      icon: BsShieldFillCheck,
+      text: t('hero.features.insurance'),
+    },
+    {
+      icon: BsClockFill,
+      text: t('hero.features.pickup'),
+    },
+    {
+      icon: BsTagFill,
+      text: t('hero.features.price'),
+    },
   ];
 
   return (
@@ -32,8 +57,10 @@ export default function Hero({ lang }: HeroProps) {
           <div className={styles.iconPhoneBlock}>
             <BsFillTelephoneFill className={styles.iconPhone} />
           </div>
+
           <div className={styles.contactTextBlock}>
             <p className={styles.contactLabel}>{t('hero.contactUs')}</p>
+
             <p className={styles.contactPhone}>+34 632 230 891</p>
           </div>
         </div>
@@ -62,9 +89,10 @@ export default function Hero({ lang }: HeroProps) {
         </div>
 
         <div className={styles.formWrapper}>
-          <SearchForm lang={lang} />
+          <SearchForm lang={lang} form={form} onChange={onFormChange} onSearch={onSearch} />
         </div>
       </div>
+
       <div className={styles.statsWrapper}>
         <Stats lang={lang} />
       </div>

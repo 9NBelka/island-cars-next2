@@ -5,13 +5,13 @@ import LangLink from '../LangLink/LangLink';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import styles from './Header.module.scss';
 
-type HeaderProps = { lang: Lang };
+type HeaderProps = { lang: Lang; isScrolled: boolean };
 
-export default function Header({ lang }: HeaderProps) {
+export default function Header({ lang, isScrolled }: HeaderProps) {
   const t = getT(lang);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <LangLink lang={lang} href='/' className={styles.logo}>
           <img src='/images/logo-main-white.png' />

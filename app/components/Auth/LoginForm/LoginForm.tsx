@@ -1,7 +1,7 @@
 'use client';
 
 import { Formik, Form } from 'formik';
-import { BsEnvelopeFill, BsLockFill, BsBoxArrowInRight } from 'react-icons/bs';
+import { BsEnvelopeFill, BsLockFill } from 'react-icons/bs';
 import { getT } from '../../../i18n/getT';
 import type { Lang } from '../../../i18n/types';
 import LangLink from '../../LangLink/LangLink';
@@ -10,15 +10,45 @@ import { buildLoginSchema, loginInitialValues, type LoginValues } from './valida
 import styles from '../RegisterForm/RegisterForm.module.scss';
 import loginStyles from './LoginForm.module.scss';
 import clsx from 'clsx';
+import { login } from '@/app/services/auth';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import type { FormikHelpers } from 'formik';
 
 type LoginFormProps = { lang: Lang };
 
 export default function LoginForm({ lang }: LoginFormProps) {
+  const router = useRouter();
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
   const t = getT(lang);
   const schema = buildLoginSchema(t);
 
-  const handleSubmit = (values: LoginValues) => {
-    console.log('login:', values);
+  const handleSubmit = async (
+    values: LoginValues,
+    { setSubmitting }: FormikHelpers<LoginValues>,
+  ) => {
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    try {
+      await login(values);
+
+      // console.log('Redirect...');
+      // router.push(`/${lang}/profile`);
+
+      setSuccessMessage('Login successful.');
+
+      window.location.href = `/${lang}/profile`;
+    } catch (error: any) {
+      console.error(error);
+
+      setErrorMessage(error.message ?? 'Login failed.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -31,39 +61,48 @@ export default function LoginForm({ lang }: LoginFormProps) {
           initialValues={loginInitialValues}
           validationSchema={schema}
           onSubmit={handleSubmit}>
-          <Form className={styles.form}>
-            <FormField
-              name='email'
-              label={t('auth.login.email')}
-              icon={BsEnvelopeFill}
-              type='email'
-              placeholder={t('auth.login.emailPlaceholder')}
-            />
-            <FormField
-              name='password'
-              label={t('auth.login.password')}
-              icon={BsLockFill}
-              type='password'
-              placeholder={t('auth.login.passwordPlaceholder')}
-            />
+          {({ isSubmitting }) => (
+            <Form className={styles.form}>
+              <FormField
+                name='email'
+                label={t('auth.login.email')}
+                icon={BsEnvelopeFill}
+                type='email'
+                placeholder={t('auth.login.emailPlaceholder')}
+              />
+              <FormField
+                name='password'
+                label={t('auth.login.password')}
+                icon={BsLockFill}
+                type='password'
+                placeholder={t('auth.login.passwordPlaceholder')}
+              />
 
-            <LangLink lang={lang} href='/forgot-password' className={loginStyles.forgotLink}>
-              {t('auth.login.forgotPassword')}
-            </LangLink>
-
-            <div className={styles.submitBlock}>
-              <button type='submit' className={styles.submit}>
-                {t('auth.login.submit')}
-              </button>
-            </div>
-
-            <p className={styles.footerLink}>
-              {t('auth.login.noAccount')}{' '}
-              <LangLink lang={lang} href='/register'>
-                {t('auth.login.signUp')}
+              <LangLink lang={lang} href='/forgot-password' className={loginStyles.forgotLink}>
+                {t('auth.login.forgotPassword')}
               </LangLink>
-            </p>
-          </Form>
+
+              <div className={styles.submitBlock}>
+                <button
+                  type='submit'
+                  className={`${styles.submit} ${isSubmitting ? styles.loading : ''}`}
+                  disabled={isSubmitting}>
+                  {isSubmitting ? 'Signing in...' : t('auth.login.submit')}
+                </button>
+              </div>
+
+              {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
+
+              {successMessage && <div className={styles.successMessage}>{successMessage}</div>}
+
+              <p className={styles.footerLink}>
+                {t('auth.login.noAccount')}{' '}
+                <LangLink lang={lang} href='/register'>
+                  {t('auth.login.signUp')}
+                </LangLink>
+              </p>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>

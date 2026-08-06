@@ -1,46 +1,57 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { BsArrowRightShort } from 'react-icons/bs';
+
 import { getT } from '../../i18n/getT';
 import type { Lang } from '../../i18n/types';
+
 import styles from './SearchForm.module.scss';
+
 import CustomSelect from './CustomSelect/CustomSelect';
 import DatePicker from './DatePicker/DatePicker';
 import TimePicker from './TimePicker/TimePicker';
-import { BsArrowRightShort } from 'react-icons/bs';
 
-type SearchFormProps = { lang: Lang };
+import type { SearchCarsParams } from '@/app/types/search';
+import type { SearchFormState } from '@/app/types/searchForm';
 
-type FormState = {
-  fromPlace: string;
-  toPlace: string;
-  fromDate: string;
-  fromTime: string;
-  toDate: string;
-  toTime: string;
+type SearchFormProps = {
+  lang: Lang;
+
+  form: SearchFormState;
+
+  onChange: (form: SearchFormState) => void;
+
+  onSearch: (params: SearchCarsParams) => void;
 };
 
 // текущее время, округлённое вверх до ближайшего 30-минутного слота
 function getRoundedNow() {
   const now = new Date();
+
   const minutes = now.getMinutes() < 30 ? 30 : 0;
   const hours = now.getMinutes() < 30 ? now.getHours() : now.getHours() + 1;
+
   return `${String(hours % 24).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 }
 
 function isToday(dateStr: string) {
   if (!dateStr) return false;
+
   const today = new Date();
+
   const y = today.getFullYear();
   const m = String(today.getMonth() + 1).padStart(2, '0');
   const d = String(today.getDate()).padStart(2, '0');
+
   return dateStr === `${y}-${m}-${d}`;
 }
 
-export default function SearchForm({ lang }: SearchFormProps) {
+export default function SearchForm({ lang, form, onChange, onSearch }: SearchFormProps) {
   const t = getT(lang);
 
   const [placeOpen, setPlaceOpen] = useState<'from' | 'to' | null>(null);
+
   const [pickerOpen, setPickerOpen] = useState<
     'fromDate' | 'fromTime' | 'toDate' | 'toTime' | null
   >(null);
@@ -54,26 +65,29 @@ export default function SearchForm({ lang }: SearchFormProps) {
     { value: 'myLocation', label: t('form.places.myLocation') },
   ];
 
-  const [form, setForm] = useState<FormState>({
-    fromPlace: 'airport',
-    toPlace: 'airport',
-    fromDate: '',
-    fromTime: '14:30',
-    toDate: '',
-    toTime: '14:30',
-  });
-
-  const handleSelect = (field: keyof FormState) => (value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const handleSelect = (field: keyof SearchFormState) => (value: string) => {
+    onChange({
+      ...form,
+      [field]: value,
+    });
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log('search:', form);
+
+    onSearch({
+      pickupPlace: form.fromPlace,
+      returnPlace: form.toPlace,
+
+      startAt: `${form.fromDate}T${form.fromTime}:00`,
+      endAt: `${form.toDate}T${form.toTime}:00`,
+    });
   };
 
   const fromDisabledBefore = isToday(form.fromDate) ? getRoundedNow() : undefined;
+
   const toMinDate = form.fromDate ? new Date(`${form.fromDate}T00:00:00`) : undefined;
+
   const toDisabledBefore =
     form.toDate === form.fromDate && isToday(form.toDate) ? getRoundedNow() : undefined;
 
@@ -81,6 +95,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.field}>
         <label>{t('form.fromPlace')}</label>
+
         <CustomSelect
           isOpen={placeOpen === 'from'}
           setIsOpen={(open) => setPlaceOpen(open ? 'from' : null)}
@@ -93,6 +108,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
 
       <div className={styles.field}>
         <label>{t('form.toPlace')}</label>
+
         <CustomSelect
           isOpen={placeOpen === 'to'}
           setIsOpen={(open) => setPlaceOpen(open ? 'to' : null)}
@@ -105,6 +121,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
 
       <div className={styles.field}>
         <label>{t('form.fromDate')}</label>
+
         <div className={styles.dateTime}>
           <DatePicker
             isOpen={pickerOpen === 'fromDate'}
@@ -115,6 +132,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
             rangeStart={form.fromDate}
             rangeEnd={form.toDate}
           />
+
           <TimePicker
             isOpen={pickerOpen === 'fromTime'}
             setIsOpen={(open) => setPickerOpen(open ? 'fromTime' : null)}
@@ -129,6 +147,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
 
       <div className={styles.field}>
         <label>{t('form.toDate')}</label>
+
         <div className={styles.dateTime}>
           <DatePicker
             isOpen={pickerOpen === 'toDate'}
@@ -140,6 +159,7 @@ export default function SearchForm({ lang }: SearchFormProps) {
             rangeStart={form.fromDate}
             rangeEnd={form.toDate}
           />
+
           <TimePicker
             isOpen={pickerOpen === 'toTime'}
             setIsOpen={(open) => setPickerOpen(open ? 'toTime' : null)}
@@ -153,7 +173,9 @@ export default function SearchForm({ lang }: SearchFormProps) {
       </div>
 
       <button type='submit' className={styles.submit}>
-        {t('form.submit')} <BsArrowRightShort className={styles.submitIcon} />
+        {t('form.submit')}
+
+        <BsArrowRightShort className={styles.submitIcon} />
       </button>
     </form>
   );

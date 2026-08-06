@@ -1,7 +1,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.4vw;
+  gap: 0.3vw;
 }
 
 .labelRow {
@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 0.4vw;
-  font-size: 0.7vw;
+  font-size: 0.65vw;
   color: var(--color-white);
   font-family: var(--font-Inter);
   line-height: var(--font-lineh-normal);
@@ -23,15 +23,15 @@
 
 .labelIcon {
   color: var(--color-red-main);
-  width: 0.85vw;
-  height: 0.85vw;
+  width: 0.75vw;
+  height: 0.75vw;
 }
 
 .input {
   display: flex;
   align-items: center;
   gap: 0.4vw;
-  padding: 0.65vw 0.9vw;
+  padding: 0.55vw 0.9vw;
   border: 0.01vw solid var(--color-darkGray);
   border-radius: 0.5vw;
   font-size: 0.75vw;

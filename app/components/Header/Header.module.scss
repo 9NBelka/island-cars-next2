@@ -1,10 +1,20 @@
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 1000;
   background: var(--color-background-black);
+  transition: all 0.3s ease-in-out;
+  padding: 1vw 0;
+
+  &.scrolled {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(0.3vw);
+    backdrop-filter: blur(0.3vw);
+    box-shadow: 0 0.01vw 1vw rgba(0, 0, 0, 0.1);
+    padding: 0.5vw 0;
+  }
 }
 
 .container {
@@ -13,7 +23,6 @@
   justify-content: space-between;
   max-width: 90vw;
   margin: 0 auto;
-  padding: 1vw 0;
 }
 
 .logo {

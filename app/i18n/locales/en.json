@@ -91,7 +91,11 @@
       "documentNumberPlaceholder": "Enter document number",
       "submit": "Create account",
       "haveAccount": "Already have an account?",
-      "logIn": "Log in"
+      "logIn": "Log in",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Repeat password"
     },
     "login": {
       "title": "Welcome back",
@@ -115,7 +119,10 @@
       "invalidDocument": "Only letters and digits are allowed",
       "invalidPassword": "At least 8 characters",
       "underage": "You must be at least 18 years old",
-      "invalidDate": "Enter a valid date"
+      "invalidDate": "Enter a valid date",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordDigit": "Password must contain at least one digit",
+      "passwordMatch": "Passwords do not match"
     }
   },
   "contacts": {

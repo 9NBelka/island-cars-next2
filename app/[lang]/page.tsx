@@ -1,5 +1,4 @@
-import Hero from '../components/Hero/Hero';
-import Stats from '../components/Stats/Stats';
+import HomePage from '../components/Home/HomePage';
 import type { Lang } from '../i18n/types';
 
 type PageProps = {
@@ -8,9 +7,5 @@ type PageProps = {
 
 export default async function Home({ params }: PageProps) {
   const { lang } = await params;
-  return (
-    <div>
-      <Hero lang={lang} />
-    </div>
-  );
+  return <HomePage lang={lang} />;
 }
