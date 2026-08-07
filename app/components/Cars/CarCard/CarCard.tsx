@@ -47,7 +47,7 @@ export default function CarCard({ car }: CarCardProps) {
             <h2 className={styles.carName}>
               {car.brand} {car.model}
             </h2>
-            <p className={styles.transmissionText}>{car.transmission} Transmission</p>
+            <p className={styles.transmissionText}>{car.transmission} Transmission1</p>
           </div>
 
           <div className={styles.carShadow}>
